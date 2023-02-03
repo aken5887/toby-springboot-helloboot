@@ -16,15 +16,27 @@ public class HellobootApplication {
   public static void main(String[] args) {
     ServletWebServerFactory factory = new TomcatServletWebServerFactory();
     WebServer webServer = factory.getWebServer(servletContext -> {
-      servletContext.addServlet("hello", new HttpServlet() {
+      servletContext.addServlet("frontcontroller", new HttpServlet() {
         @Override
         protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-          String name = req.getParameter("name");
-          resp.setStatus(HttpStatus.OK.value());
-          resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
-          resp.getWriter().println("Hello, "+name);
+          // 인증, 보안, 다국어, 공통 기능
+          String requestURL = req.getRequestURI();
+          String httpMethod = req.getMethod();
+
+          switch(requestURL){
+            case "/hello":
+              if("GET".equals(httpMethod)){
+                String name = req.getParameter("name");
+                resp.setStatus(HttpStatus.OK.value());
+                resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE);
+                resp.getWriter().println("Hello, "+name);
+              }
+              break;
+            default:
+              resp.setStatus(HttpStatus.BAD_REQUEST.value());
+          }
         }
-      }).addMapping("/hello");
+      }).addMapping("/*");
     });
     webServer.start();
   }
