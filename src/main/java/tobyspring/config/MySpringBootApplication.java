@@ -1,4 +1,4 @@
-package tobyspring.helloboot;
+package tobyspring.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,5 +12,4 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 @Configuration
 public @interface MySpringBootApplication {
-
 }
