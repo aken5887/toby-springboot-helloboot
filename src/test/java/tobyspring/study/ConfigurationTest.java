@@ -1,4 +1,4 @@
-package tobyspring.helloboot;
+package tobyspring.study;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
