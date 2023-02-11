@@ -1,8 +1,5 @@
 package tobyspring.helloboot;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.startsWith;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -12,13 +9,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 public class HelloApiTest {
+  private final String HELLO_API_URL = "http://localhost:8080/app/hello";
   @Test
   void helloApi(){
     // http localhost:8080/hello?name=Spring
     // HTTPie
     TestRestTemplate restTemplate = new TestRestTemplate();
     ResponseEntity<String> response
-        = restTemplate.getForEntity("http://localhost:8080/hello?name={name}", String.class, "Spring");
+        = restTemplate.getForEntity(HELLO_API_URL +"?name={name}", String.class, "Spring");
     // status code 200
     Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
     // header(content-type) text/plain
@@ -32,7 +30,7 @@ public class HelloApiTest {
   void HelloApiFail(){
     TestRestTemplate testRestTemplate = new TestRestTemplate();
     ResponseEntity<String> res
-        = testRestTemplate.getForEntity("http://localhost:8080/hello?name=", String.class);
+        = testRestTemplate.getForEntity(HELLO_API_URL +"?name=", String.class);
     Assertions.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
   }
 }
