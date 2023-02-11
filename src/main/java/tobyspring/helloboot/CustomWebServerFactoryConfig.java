@@ -5,7 +5,7 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration(proxyBeanMethods = false)
+//@Configuration(proxyBeanMethods = false)
 public class CustomWebServerFactoryConfig {
   @Bean
   public ServletWebServerFactory customWebServerFactory(){

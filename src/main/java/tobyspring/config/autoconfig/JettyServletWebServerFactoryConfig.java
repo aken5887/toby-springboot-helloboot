@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import tobyspring.config.ConditionalMyOnClass;
 import tobyspring.config.MyAutoConfiguration;
@@ -15,7 +16,9 @@ import tobyspring.config.MyAutoConfiguration;
 public class JettyServletWebServerFactoryConfig {
   @Bean("jettyWebServerFactory")
   @ConditionalOnMissingBean
-  public ServletWebServerFactory jettyServletWebServerFactory(){
-    return new JettyServletWebServerFactory();
+  public ServletWebServerFactory jettyServletWebServerFactory(Environment env){
+    JettyServletWebServerFactory factory = new JettyServletWebServerFactory();
+    factory.setContextPath(env.getProperty("context.path"));
+    return factory;
   }
 }
