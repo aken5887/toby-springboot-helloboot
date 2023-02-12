@@ -1,6 +1,7 @@
 package tobyspring.config.autoconfig;
 
 import java.util.Map;
+import java.util.logging.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -14,6 +15,8 @@ import tobyspring.config.ServerProperties;
 @MyAutoConfiguration
 public class PropertyPostProcessorConfig {
 
+  private final Logger logger = Logger.getLogger(this.getClass().getName());
+
   @Bean
   BeanPostProcessor beanPostProcessor(Environment env){
     return new BeanPostProcessor() {
@@ -25,8 +28,10 @@ public class PropertyPostProcessorConfig {
 
         Map<String, Object> attrs = AnnotationUtils.getAnnotationAttributes(annotation);
         String prefix = (String) attrs.get("prefix");
+        Object result = Binder.get(env).bindOrCreate(prefix, bean.getClass());
 
-        return Binder.get(env).bindOrCreate(prefix, bean.getClass());
+        logger.info("created bean ==> " + result.getClass().getName());
+        return result;
       }
     };
   }
