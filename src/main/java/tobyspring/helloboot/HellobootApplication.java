@@ -17,7 +17,7 @@ public class HellobootApplication {
     return new ApplicationRunner() {
       @Override
       public void run(ApplicationArguments args) throws Exception {
-        System.out.println(env.getProperty("context.path"));
+        System.out.println(env.getProperty("server.contextPath"));
       }
     };
   }

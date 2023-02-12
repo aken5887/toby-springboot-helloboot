@@ -1,5 +1,6 @@
 package tobyspring.config;
 
+@MyConfigurationProperties(prefix="server")
 public class ServerProperties {
   String contextPath;
   int serverPort;
