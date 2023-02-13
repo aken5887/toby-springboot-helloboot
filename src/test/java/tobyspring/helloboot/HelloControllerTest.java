@@ -15,7 +15,7 @@ public class HelloControllerTest {
 
   @Test
   void helloControllerFailTest(){
-    HelloController controller = new HelloController(name->name);
+    HelloController controller = new HelloController(name -> name);
     Assertions.assertThatThrownBy(()->{
       String ret = controller.hello(null);
     }).isInstanceOf(IllegalArgumentException.class);

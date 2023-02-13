@@ -12,11 +12,6 @@ public class GreetingRepositoryTest {
   @Autowired GreetingRepository repository;
   @Autowired JdbcTemplate jdbcTemplate;
 
-  @BeforeEach
-  void init(){
-    jdbcTemplate.execute("create table if not exists greeting (name varchar(50) primary key, count int)");
-  }
-
   @Test
   void findGreetingFail(){
     Assertions.assertThat(repository.findGreeting("toby")).isNull();
