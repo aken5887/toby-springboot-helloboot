@@ -15,15 +15,15 @@ public class JdbcTemplateTest {
 
   @BeforeEach
   void init(){
-    jdbcTemplate.execute("create table if not exists tb_user (name varchar(50) primary key, count int)");
+    jdbcTemplate.execute("create table if not exists greeting (name varchar(50) primary key, count int)");
   }
 
   @Test
   void insertAndQuery(){
-    jdbcTemplate.update("insert into tb_user values (?, ?)", "Toby", 3);
-    jdbcTemplate.update("insert into tb_user values (?, ?)", "Yong", 1);
+    jdbcTemplate.update("insert into greeting values (?, ?)", "Toby", 3);
+    jdbcTemplate.update("insert into greeting values (?, ?)", "Yong", 1);
 
-    int members = jdbcTemplate.queryForObject("select count(*) from tb_user", int.class);
+    int members = jdbcTemplate.queryForObject("select count(*) from greeting", int.class);
     Assertions.assertThat(members).isEqualTo(2);
   }
 }
