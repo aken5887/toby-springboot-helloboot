@@ -1,4 +1,4 @@
-package tobyspring.study;
+package tobyspring.helloboot;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,9 +11,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import tobyspring.helloboot.HellobootApplication;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = HellobootApplication.class)
-@TestPropertySource("classpath:/application.properties")
+@HellobootTest
 public class DataSourceTest {
 
   @Autowired DataSource dataSource;
