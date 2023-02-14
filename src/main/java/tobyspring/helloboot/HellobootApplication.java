@@ -1,6 +1,8 @@
 package tobyspring.helloboot;
 
 import javax.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +13,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
 public class HellobootApplication {
+
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private final JdbcTemplate jdbcTemplate;
 
@@ -23,13 +27,14 @@ public class HellobootApplication {
     return new ApplicationRunner() {
       @Override
       public void run(ApplicationArguments args) throws Exception {
-        System.out.println(env.getProperty("server.contextPath"));
+        logger.info(env.getProperty("server.servlet.context-path"));
       }
     };
   }
 
   @PostConstruct
   void init(){
+    logger.info("PostConstruct init");
     jdbcTemplate.execute("create table if not exists greeting (name varchar(50) primary key, count int)");
   }
 
